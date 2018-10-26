@@ -1,5 +1,6 @@
 const Benchmark = require('benchmark');
 const ProceduralLambda = require('./procedural-lambda');
+const L = require('list/methods');
 
 function runTestsForN(n){
 	function* generator(){
@@ -12,12 +13,16 @@ function runTestsForN(n){
 	const r1i = (accum,v,i) => accum+v;
 	let suite;
 	let packed = [...generator()];
-	let lbd = (new ProceduralLambda([...generator()])).map(m1).filter(f1).reduce(r1, 0);
-	let lbdi = (new ProceduralLambda([...generator()])).map(m1).filter(f1).reduce(r1i, 0);
+	let lbd = (new ProceduralLambda(packed)).map(m1).filter(f1).reduce(r1, 0);
+	let lbdi = (new ProceduralLambda(packed)).map(m1).filter(f1).reduce(r1i, 0);
+	let lbdc = (new ProceduralLambda(packed)).mapComplex(m1).filterComplex(f1).reduceComplex(r1, 0);
+	let list = L.list(packed);
 
 	suite = new Benchmark.Suite('Map Filter Length');
 	suite
 	.add('raw', () => packed.map(m1).filter(f1).reduce(r1, 0))
+	.add('list', () => list.map(m1).filter(f1).reduce(r1, 0))
+	.add('lambda-using-complex', () => lbdc.execute())
 	.add('lambda-with-indices', () => lbdi.execute())
 	.add('lambda', () => lbd.execute())
 	.on('cycle', (ev) => {

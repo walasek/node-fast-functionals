@@ -50,6 +50,69 @@ const my_pipeline = new ProceduralLambda()
 
 const my_data = [1, 2, 3, 4, 5];
 console.log(`Processing result is: ${my_pipeline.execute(my_data)}`);
+
+// High order functions are immutable
+const base_pipeline = new ProceduralLambda()
+    .map(v => v+1);
+
+const pipeline1 = base_pipeline.filter(v => v % 2 !== 0);
+const pipeline2 = base_pipeline.filter(v => v % 2 === 0);
+// base_pipeline, pipeline1 and pipeline2 are different objects now!
+```
+
+## Benchmarks
+
+Below is a benchmark of a simple map, filter, reduce chain using native Arrays (`raw`), using the awesome [list](https://github.com/funkia/list) library, using this library's complex methods (`lambda-using-complex`), using lambdas with indice arguments for reduce (`lambda-with-indices`), using lambdas with only values (`lambda`).
+
+```
+raw x 2,321,126 ops/sec ±0.57% (96 runs sampled)
+list x 1,654,198 ops/sec ±1.16% (90 runs sampled)
+lambda-using-complex x 2,248,725 ops/sec ±0.98% (93 runs sampled)
+lambda-with-indices x 2,957,437 ops/sec ±0.33% (94 runs sampled)
+lambda x 3,213,692 ops/sec ±0.63% (90 runs sampled)
+Fastest execution for N=10 is lambda
+
+raw x 238,413 ops/sec ±0.20% (92 runs sampled)
+list x 415,290 ops/sec ±1.95% (91 runs sampled)
+lambda-using-complex x 586,469 ops/sec ±0.76% (90 runs sampled)
+lambda-with-indices x 1,188,276 ops/sec ±0.84% (93 runs sampled)
+lambda x 1,488,025 ops/sec ±0.26% (93 runs sampled)
+Fastest execution for N=100 is lambda
+
+raw x 24,171 ops/sec ±0.64% (93 runs sampled)
+list x 47,571 ops/sec ±0.88% (93 runs sampled)
+lambda-using-complex x 70,660 ops/sec ±0.52% (95 runs sampled)
+lambda-with-indices x 174,379 ops/sec ±0.23% (93 runs sampled)
+lambda x 219,467 ops/sec ±0.44% (94 runs sampled)
+Fastest execution for N=1000 is lambda
+
+raw x 2,357 ops/sec ±0.67% (95 runs sampled)
+list x 4,637 ops/sec ±0.76% (96 runs sampled)
+lambda-using-complex x 6,538 ops/sec ±1.33% (96 runs sampled)
+lambda-with-indices x 16,682 ops/sec ±1.81% (90 runs sampled)
+lambda x 22,277 ops/sec ±0.57% (86 runs sampled)
+Fastest execution for N=10000 is lambda
+
+raw x 63.39 ops/sec ±1.26% (65 runs sampled)
+list x 90.23 ops/sec ±2.00% (67 runs sampled)
+lambda-using-complex x 517 ops/sec ±1.76% (82 runs sampled)
+lambda-with-indices x 950 ops/sec ±1.71% (79 runs sampled)
+lambda x 1,115 ops/sec ±1.74% (80 runs sampled)
+Fastest execution for N=100000 is lambda
+
+raw x 6.13 ops/sec ±1.39% (20 runs sampled)
+list x 8.71 ops/sec ±3.84% (24 runs sampled)
+lambda-using-complex x 45.51 ops/sec ±5.20% (51 runs sampled)
+lambda-with-indices x 83.88 ops/sec ±4.27% (62 runs sampled)
+lambda x 88.34 ops/sec ±4.48% (58 runs sampled)
+Fastest execution for N=1000000 is lambda,lambda-with-indices
+
+raw x 0.60 ops/sec ±1.33% (6 runs sampled)
+list x 0.74 ops/sec ±1.54% (6 runs sampled)
+lambda-using-complex x 4.88 ops/sec ±8.00% (17 runs sampled)
+lambda-with-indices x 7.17 ops/sec ±9.62% (22 runs sampled)
+lambda x 8.28 ops/sec ±10.23% (25 runs sampled)
+Fastest execution for N=10000000 is lambda
 ```
 
 ## Contributing
