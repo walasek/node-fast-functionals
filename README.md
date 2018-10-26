@@ -39,17 +39,31 @@ Beware this project is still in development. There may be serious bugs or perfor
 ```javascript
 const ProceduralLambda = require('fast-functionals');
 
+const external_var = 1;
 const my_pipeline = new ProceduralLambda()
     // BEWARE the argument names must be v, i, s!
+    // The letters stand for: value, index, self
     .filter((v,i,s) => v % 2)
     // You can omit unused arguments
     // Not using indices is actually faster
     .map(v => v+1)
+    // You CANOT reference other variables in pure lambda functions!
+    // Only globals and lambda arguments can be safely accessed within the body.
+    // This line would throw a runtime exception:
+    //   .map(v => v+external_var)
+    // But this line is fine:
+    //   .map(v => Math.floor(v))
+    // If you need any more functionality you need to use the complex method
+    //   that doesn't inject function body into procedural code.
+    .mapComplex(function(v){
+        return v+external_var; // Do whatever you want here
+    })
     // Reducing has a signature of accum, v, i ,s
+    // Accum stands for: accumulator
     .reduce((accum,v) => accum+v, 0);
 
 const my_data = [1, 2, 3, 4, 5];
-console.log(`Processing result is: ${my_pipeline.execute(my_data)}`);
+console.log(`Result is: ${my_pipeline.execute(my_data)}`);
 
 // High order functions are immutable
 const base_pipeline = new ProceduralLambda()
