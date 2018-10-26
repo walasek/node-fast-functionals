@@ -37,7 +37,19 @@ npm run benchmark
 Beware this project is still in development. There may be serious bugs or performance issues over time.
 
 ```javascript
-// FILL ME
+const ProceduralLambda = require('fast-functionals');
+
+const my_pipeline = new ProceduralLambda()
+    // BEWARE the argument names must be v, i, s!
+    .filter((v,i,s) => v % 2)
+    // You can omit unused arguments
+    // Not using indices is actually faster
+    .map(v => v+1)
+    // Reducing has a signature of accum, v, i ,s
+    .reduce((accum,v) => accum+v, 0);
+
+const my_data = [1, 2, 3, 4, 5];
+console.log(`Processing result is: ${my_pipeline.execute(my_data)}`);
 ```
 
 ## Contributing
