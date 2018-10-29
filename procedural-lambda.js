@@ -1,23 +1,23 @@
 /**
  * @class
  * A descriptor of a sequence of operations to be executed on a data source.
- *
+ * @description
  * Methods descriptors:
  *
- * 	Mutates state - changes the object's internal state
+ * Mutates state - changes the object's internal state
  *
- * 	Immutable - does not change the internal state, instead returns a new object
+ * Immutable - does not change the internal state, instead returns a new object
  *
- * 	Chainable - returns self, so chained calls are possible
+ * Chainable - returns self, so chained calls are possible
  *
- * 	Quick - Passed function bodies will be injected into procedural code. Lambdas passed to _Quick_ methods *MUST* use the variable names `v,i,s` (all are optional; stands for value, index, self). Note that a Lambda does not use `{}`.
+ * Quick - Passed function bodies will be injected into procedural code. Lambdas passed to _Quick_ methods *MUST* use the variable names `v,i,s` (all are optional; stands for value, index, self). Note that a Lambda does not use `{}`.
  *
- * 	Slow - Passed functions will be called from the procedural code.
+ * Slow - Passed functions will be called from the procedural code.
  */
 class ProceduralLambda {
 	/**
 	 * @constructor
-	 * @param {Collection} [source] Attach to a data source. Can be defined later with `execute`.
+	 * @param {Iterable} [source] Attach to a data source. Can be defined later with `execute`.
 	 */
 	constructor(source){
 		this.source = source;
@@ -31,6 +31,8 @@ class ProceduralLambda {
 	 * @param {String} type A type of operation recognised by the compiler.
 	 * @param {function} fn A user lambda.
 	 * @param  {...any} args Other arguments required for the function to be executed.
+	 * @private
+	 * @returns {ProceduralLambda}
 	 */
 	addStep(type, fn, ...args){
 		this.steps.push([type, fn].concat(args));
@@ -41,6 +43,8 @@ class ProceduralLambda {
 	 * Copies another ProceduralLambda's pipeline.
 	 * Mutates state. Chainable.
 	 * @param {Array} steps The pipeline to copy.
+	 * @private
+	 * @returns {ProceduralLambda}
 	 */
 	withSteps(steps){
 		this.steps = steps.slice(0);
@@ -51,6 +55,7 @@ class ProceduralLambda {
 	 * Add a filtering step.
 	 * Quick. Immutable. Chainable
 	 * @param {function(v,i,s): bool} lambda The Lambda to inject.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	filter(lambda){
 		return new ProceduralLambda(this.source)
@@ -62,6 +67,7 @@ class ProceduralLambda {
 	 * Add a filtering step.
 	 * Slow. Immutable. Chainable.
 	 * @param {function(v,i,s): bool} fn The function to call.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	filterComplex(fn){
 		return new ProceduralLambda(this.source)
@@ -72,6 +78,7 @@ class ProceduralLambda {
 	/**
 	 * Add a map step.
 	 * @param {function(v,i,s): *} lambda The Lambda to inject.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	map(lambda){
 		return new ProceduralLambda(this.source)
@@ -82,6 +89,7 @@ class ProceduralLambda {
 	/**
 	 * Add a map step.
 	 * @param {function(v,i,s): *} fn The function to call.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	mapComplex(fn){
 		return new ProceduralLambda(this.source)
@@ -93,6 +101,7 @@ class ProceduralLambda {
 	 * Add a reduce step.
 	 * @param {function(accum,v,i,s): *} lambda The Lambda to inject.
 	 * @param {*} init Initial _accum_ value.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	reduce(lambda, init){
 		return new ProceduralLambda(this.source)
@@ -102,8 +111,9 @@ class ProceduralLambda {
 
 	/**
 	 * Add a reduce step.
-	 * @param {function(accum,v,i,s): *} fn The Lambda to inject.
+	 * @param {function(accum,v,i,s): *} fn The function to call.
 	 * @param {*} init Initial _accum_ value.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	reduceComplex(fn, init){
 		return new ProceduralLambda(this.source)
@@ -115,6 +125,7 @@ class ProceduralLambda {
 	 * Add a takeUntil step.
 	 * When the passed lambda returns false no more rows are processed.
 	 * @param {function(v,i,s): bool} lambda The Lambda to inject.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	takeUntil(lambda){
 		return new ProceduralLambda(this.source)
@@ -126,6 +137,7 @@ class ProceduralLambda {
 	 * Add a takeUntil step.
 	 * When the passed function returns false no more rows are processed.
 	 * @param {function(v,i,s): bool} fn The Function to call.
+	 * @returns {ProceduralLambda} A new instance.
 	 */
 	takeUntilComplex(fn){
 		return new ProceduralLambda(this.source)
@@ -136,6 +148,7 @@ class ProceduralLambda {
 	/**
 	 * Extract a Lambda function body. Does not work with regular function syntax.
 	 * @param {function} lambda The Lambda to examine.
+	 * @private
 	 */
 	static getLambdaBody(lambda){
 		return lambda.toString().split('=>')[1];
@@ -144,13 +157,14 @@ class ProceduralLambda {
 	/**
 	 * Extract the number of arguments a Lambda is accepting.
 	 * @param {function} lambda The Lambda to examine.
+	 * @private
 	 */
 	static getLambdaArgnum(lambda){
 		return lambda.toString().split('=>')[0].split(',').length;
 	}
 
 	/**
-	 * Turn a pipeline of operations into procedural source code.
+	 * Turn a pipeline of operations into procedural source code. Makes the next call to `execute` a bit faster.
 	 * Mutates state.
 	 */
 	compile(){
@@ -229,8 +243,8 @@ ${is_reducing ? 'result = accum;' : 'result.splice(cursor)'}
 
 	/**
 	 * Execute the processing pipeline on a data source.
-	 * @param {Collection} [source] The data source to examine.
-	 * @returns {*}
+	 * @param {Iterable} [source] The data source to examine.
+	 * @returns {Array|*} The result of the pipeline, which is an array or a value if the pipeline uses `reduce`.
 	 */
 	execute(source){
 		const all = source || this.source;

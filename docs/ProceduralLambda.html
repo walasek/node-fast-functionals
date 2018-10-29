@@ -26,7 +26,7 @@
 
 <nav>
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ProceduralLambda.html">ProceduralLambda</a><ul class='methods'><li data-type='method'><a href="ProceduralLambda.html#.getLambdaArgnum">getLambdaArgnum</a></li><li data-type='method'><a href="ProceduralLambda.html#.getLambdaBody">getLambdaBody</a></li><li data-type='method'><a href="ProceduralLambda.html#addStep">addStep</a></li><li data-type='method'><a href="ProceduralLambda.html#compile">compile</a></li><li data-type='method'><a href="ProceduralLambda.html#execute">execute</a></li><li data-type='method'><a href="ProceduralLambda.html#filter">filter</a></li><li data-type='method'><a href="ProceduralLambda.html#filterComplex">filterComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#map">map</a></li><li data-type='method'><a href="ProceduralLambda.html#mapComplex">mapComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#reduce">reduce</a></li><li data-type='method'><a href="ProceduralLambda.html#reduceComplex">reduceComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#takeUntil">takeUntil</a></li><li data-type='method'><a href="ProceduralLambda.html#takeUntilComplex">takeUntilComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#withSteps">withSteps</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ProceduralLambda.html">ProceduralLambda</a><ul class='methods'><li data-type='method'><a href="ProceduralLambda.html#compile">compile</a></li><li data-type='method'><a href="ProceduralLambda.html#execute">execute</a></li><li data-type='method'><a href="ProceduralLambda.html#filter">filter</a></li><li data-type='method'><a href="ProceduralLambda.html#filterComplex">filterComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#map">map</a></li><li data-type='method'><a href="ProceduralLambda.html#mapComplex">mapComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#reduce">reduce</a></li><li data-type='method'><a href="ProceduralLambda.html#reduceComplex">reduceComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#takeUntil">takeUntil</a></li><li data-type='method'><a href="ProceduralLambda.html#takeUntilComplex">takeUntilComplex</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -47,17 +47,7 @@
         ProceduralLambda
         </h2>
         
-            <div class="class-description"><p>A descriptor of a sequence of operations to be executed on a data source.</p>
-<p>Methods descriptors:</p>
-<pre class="prettyprint source"><code>Mutates state - changes the object's internal state
-
-Immutable - does not change the internal state, instead returns a new object
-
-Chainable - returns self, so chained calls are possible
-
-Quick - Passed function bodies will be injected into procedural code. Lambdas passed to _Quick_ methods *MUST* use the variable names `v,i,s` (all are optional; stands for value, index, self). Note that a Lambda does not use `{}`.
-
-Slow - Passed functions will be called from the procedural code.</code></pre></div>
+            <div class="class-description"><p>A descriptor of a sequence of operations to be executed on a data source.</p></div>
         
     
 </header>
@@ -122,6 +112,15 @@ Slow - Passed functions will be called from the procedural code.</code></pre></d
 
 
 
+
+<div class="description">
+    <p>Methods descriptors:</p>
+<p>Mutates state - changes the object's internal state</p>
+<p>Immutable - does not change the internal state, instead returns a new object</p>
+<p>Chainable - returns self, so chained calls are possible</p>
+<p>Quick - Passed function bodies will be injected into procedural code. Lambdas passed to <em>Quick</em> methods <em>MUST</em> use the variable names <code>v,i,s</code> (all are optional; stands for value, index, self). Note that a Lambda does not use <code>{}</code>.</p>
+<p>Slow - Passed functions will be called from the procedural code.</p>
+</div>
 
 
 
@@ -238,7 +237,7 @@ Slow - Passed functions will be called from the procedural code.</code></pre></d
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line251">line 251</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line265">line 265</a>
     </li></ul></dd>
     
 
@@ -299,480 +298,6 @@ Slow - Passed functions will be called from the procedural code.</code></pre></d
 
     
 
-    <h4 class="name" id=".getLambdaArgnum"><span class="type-signature">(static) </span>getLambdaArgnum<span class="signature">(lambda)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line148">line 148</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Extract the number of arguments a Lambda is accepting.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>lambda</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The Lambda to examine.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".getLambdaBody"><span class="type-signature">(static) </span>getLambdaBody<span class="signature">(lambda)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line140">line 140</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Extract a Lambda function body. Does not work with regular function syntax.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>lambda</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The Lambda to examine.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="addStep"><span class="type-signature"></span>addStep<span class="signature">(type, fn, &hellip;args)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line35">line 35</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Add a step to the processing pipeline.
-Mutates state. Chainable.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>A type of operation recognised by the compiler.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>A user lambda.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Other arguments required for the function to be executed.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
     <h4 class="name" id="compile"><span class="type-signature"></span>compile<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
@@ -785,7 +310,7 @@ Mutates state. Chainable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line156">line 156</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line170">line 170</a>
     </li></ul></dd>
     
 
@@ -825,7 +350,7 @@ Mutates state. Chainable.</p>
 
 
 <div class="description">
-    <p>Turn a pipeline of operations into procedural source code.
+    <p>Turn a pipeline of operations into procedural source code. Makes the next call to <code>execute</code> a bit faster.
 Mutates state.</p>
 </div>
 
@@ -858,7 +383,7 @@ Mutates state.</p>
 
     
 
-    <h4 class="name" id="execute"><span class="type-signature"></span>execute<span class="signature">(source<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {*}</span></h4>
+    <h4 class="name" id="execute"><span class="type-signature"></span>execute<span class="signature">(source<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array|*}</span></h4>
 
     
 
@@ -870,7 +395,7 @@ Mutates state.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line235">line 235</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line249">line 249</a>
     </li></ul></dd>
     
 
@@ -999,6 +524,10 @@ Mutates state.</p>
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>The result of the pipeline, which is an array or a value if the pipeline uses <code>reduce</code>.</p>
+</div>
+
 
 
 <dl class="param-type">
@@ -1007,6 +536,9 @@ Mutates state.</p>
     </dt>
     <dd>
         
+<span class="param-type">Array</span>
+|
+
 <span class="param-type">*</span>
 
 
@@ -1021,7 +553,7 @@ Mutates state.</p>
 
     
 
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(lambda)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">(lambda)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1033,7 +565,7 @@ Mutates state.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line55">line 55</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -1148,6 +680,28 @@ Quick. Immutable. Chainable</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -1155,7 +709,7 @@ Quick. Immutable. Chainable</p>
 
     
 
-    <h4 class="name" id="filterComplex"><span class="type-signature"></span>filterComplex<span class="signature">(fn)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="filterComplex"><span class="type-signature"></span>filterComplex<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1167,7 +721,7 @@ Quick. Immutable. Chainable</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line66">line 66</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -1282,6 +836,28 @@ Slow. Immutable. Chainable.</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -1289,7 +865,7 @@ Slow. Immutable. Chainable.</p>
 
     
 
-    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(lambda)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(lambda)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1301,7 +877,7 @@ Slow. Immutable. Chainable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line76">line 76</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -1415,6 +991,28 @@ Slow. Immutable. Chainable.</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -1422,7 +1020,7 @@ Slow. Immutable. Chainable.</p>
 
     
 
-    <h4 class="name" id="mapComplex"><span class="type-signature"></span>mapComplex<span class="signature">(fn)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="mapComplex"><span class="type-signature"></span>mapComplex<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1434,7 +1032,7 @@ Slow. Immutable. Chainable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line86">line 86</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -1548,6 +1146,28 @@ Slow. Immutable. Chainable.</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -1555,7 +1175,7 @@ Slow. Immutable. Chainable.</p>
 
     
 
-    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(lambda, init)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce<span class="signature">(lambda, init)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1567,7 +1187,7 @@ Slow. Immutable. Chainable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line97">line 97</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -1704,6 +1324,28 @@ Slow. Immutable. Chainable.</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -1711,7 +1353,7 @@ Slow. Immutable. Chainable.</p>
 
     
 
-    <h4 class="name" id="reduceComplex"><span class="type-signature"></span>reduceComplex<span class="signature">(fn, init)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="reduceComplex"><span class="type-signature"></span>reduceComplex<span class="signature">(fn, init)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1723,7 +1365,7 @@ Slow. Immutable. Chainable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line108">line 108</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -1817,7 +1459,7 @@ Slow. Immutable. Chainable.</p>
 
             
 
-            <td class="description last"><p>The Lambda to inject.</p></td>
+            <td class="description last"><p>The function to call.</p></td>
         </tr>
 
     
@@ -1860,6 +1502,28 @@ Slow. Immutable. Chainable.</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -1867,7 +1531,7 @@ Slow. Immutable. Chainable.</p>
 
     
 
-    <h4 class="name" id="takeUntil"><span class="type-signature"></span>takeUntil<span class="signature">(lambda)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="takeUntil"><span class="type-signature"></span>takeUntil<span class="signature">(lambda)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -1879,7 +1543,7 @@ Slow. Immutable. Chainable.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line119">line 119</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line130">line 130</a>
     </li></ul></dd>
     
 
@@ -1994,6 +1658,28 @@ When the passed lambda returns false no more rows are processed.</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new instance.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
         
@@ -2001,7 +1687,7 @@ When the passed lambda returns false no more rows are processed.</p>
 
     
 
-    <h4 class="name" id="takeUntilComplex"><span class="type-signature"></span>takeUntilComplex<span class="signature">(fn)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="takeUntilComplex"><span class="type-signature"></span>takeUntilComplex<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="ProceduralLambda.html">ProceduralLambda</a>}</span></h4>
 
     
 
@@ -2013,7 +1699,7 @@ When the passed lambda returns false no more rows are processed.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line130">line 130</a>
+        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -2128,140 +1814,28 @@ When the passed function returns false no more rows are processed.</p>
 
 
 
-
+<h5>Returns:</h5>
 
         
-            
-
-    
-
-    <h4 class="name" id="withSteps"><span class="type-signature"></span>withSteps<span class="signature">(steps)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="procedural-lambda.js.html">procedural-lambda.js</a>, <a href="procedural-lambda.js.html#line45">line 45</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Copies another ProceduralLambda's pipeline.
-Mutates state. Chainable.</p>
+<div class="param-desc">
+    <p>A new instance.</p>
 </div>
 
 
 
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>steps</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
+<span class="param-type"><a href="ProceduralLambda.html">ProceduralLambda</a></span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The pipeline to copy.</p></td>
-        </tr>
+    </dd>
+</dl>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         
@@ -2284,7 +1858,7 @@ Mutates state. Chainable.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Oct 29 2018 17:24:51 GMT+0100 (Central European Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Oct 29 2018 17:32:50 GMT+0100 (Central European Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
