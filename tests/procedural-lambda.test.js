@@ -67,5 +67,18 @@ module.exports = (t) => {
 		const proc = new ProceduralLambda([1,2,3,4,5])
 			.filter(v => v === 3);
 		t.equal(proc.length, 1);
-	})
+	});
+
+	t.test('TakeUntil', (t) => {
+		const proc = new ProceduralLambda([1,2,3,4,5,6])
+			.takeUntil(v => v < 4);
+		t.equal(proc.length, 3);
+		t.equal(proc.execute()[0], 1);
+
+		const limit = 4;
+		const proc2 = new ProceduralLambda([1,2,3,4,5,6])
+			.takeUntilComplex(v => v < limit);
+		t.equal(proc.length, 3);
+		t.deepEqual(proc.execute(), proc2.execute());
+	});
 }

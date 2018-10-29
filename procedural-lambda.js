@@ -112,6 +112,28 @@ class ProceduralLambda {
 	}
 
 	/**
+	 * Add a takeUntil step.
+	 * When the passed lambda returns false no more rows are processed.
+	 * @param {function(v,i,s): bool} lambda The Lambda to inject.
+	 */
+	takeUntil(lambda){
+		return new ProceduralLambda(this.source)
+			.withSteps(this.steps)
+			.addStep('take-until', lambda);
+	}
+
+	/**
+	 * Add a takeUntil step.
+	 * When the passed function returns false no more rows are processed.
+	 * @param {function(v,i,s): bool} fn The Function to call.
+	 */
+	takeUntilComplex(fn){
+		return new ProceduralLambda(this.source)
+			.withSteps(this.steps)
+			.addStep('take-until-fn', fn);
+	}
+
+	/**
 	 * Extract a Lambda function body. Does not work with regular function syntax.
 	 * @param {function} lambda The Lambda to examine.
 	 */
@@ -135,8 +157,8 @@ class ProceduralLambda {
 		const REDUCE_FUNCTIONS = ['reduce', 'reduce-fn'];
 		const is_reducing = (this.steps.filter(v => REDUCE_FUNCTIONS.indexOf(v[0]) !== -1).length > 0);
 
-		const INDICE_USERS = ['map', 'filter'];
-		const FUNCTIONS = ['map-fn', 'filter-fn', 'reduce-fn'];
+		const INDICE_USERS = ['map', 'filter', 'take-until'];
+		const FUNCTIONS = ['map-fn', 'filter-fn', 'reduce-fn', 'take-until-fn'];
 		// TODO: Implement a check for regular functions too
 		// Indices are used if a lambda uses more than 1 argument, or if there are regular functions
 		const is_using_i = this.steps.filter(v =>
@@ -181,6 +203,14 @@ for(index = 0; index < lim; index++){
 
 			case 'reduce-fn':
 				line += `accum = this.steps[${step_i}][1](accum,v,i,s);continue;`;
+				break;
+
+			case 'take-until':
+				line += `if(!(${ProceduralLambda.getLambdaBody(step[1])}))break;`
+				break;
+
+			case 'take-until-fn':
+				line += `if(!this.steps[${step_i}][1](v,i,s))break;`;
 				break;
 
 			default: throw Error('Invalid step '+step[0]);
