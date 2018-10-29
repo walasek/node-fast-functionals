@@ -36,6 +36,8 @@ npm run benchmark
 
 Beware this project is still in development. There may be serious bugs or performance issues over time.
 
+Documentation is available [here](https://walasek.github.io/node-fast-functionals/).
+
 ```javascript
 const ProceduralLambda = require('fast-functionals');
 
