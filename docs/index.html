@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ProceduralLambda.html">ProceduralLambda</a><ul class='methods'><li data-type='method'><a href="ProceduralLambda.html#compile">compile</a></li><li data-type='method'><a href="ProceduralLambda.html#execute">execute</a></li><li data-type='method'><a href="ProceduralLambda.html#filter">filter</a></li><li data-type='method'><a href="ProceduralLambda.html#filterComplex">filterComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#map">map</a></li><li data-type='method'><a href="ProceduralLambda.html#mapComplex">mapComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#reduce">reduce</a></li><li data-type='method'><a href="ProceduralLambda.html#reduceComplex">reduceComplex</a></li><li data-type='method'><a href="ProceduralLambda.html#takeUntil">takeUntil</a></li><li data-type='method'><a href="ProceduralLambda.html#takeUntilComplex">takeUntilComplex</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1><a href="https://github.com/walasek/node-fast-functionals">node-fast-functionals</a> <a href="https://travis-ci.org/walasek/node-fast-functionals"><img src="https://img.shields.io/travis/walasek/node-fast-functionals.svg?style=flat-square" alt="Build Status"></a> <a href="https://www.npmjs.com/walasek/node-fast-functionals"><img src="https://img.shields.io/npm/v/fast-functionals.svg?style=flat-square" alt="Package Version"></a> <img src="https://img.shields.io/npm/l/fast-functionals.svg?style=flat-square" alt="License"> <a href="https://david-dm.org/walasek/node-fast-functionals.svg"><img src="https://david-dm.org/walasek/node-fast-functionals.svg" alt="Dependencies"></a>  <a href="https://codecov.io/gh/walasek/node-fast-functionals"><img src="https://codecov.io/gh/walasek/node-fast-functionals/branch/master/graph/badge.svg" alt="codecov"></a></h1><p>Super quick collection processing with functional programming.</p>
+<hr>
+<h2>Goal</h2><p>Processing data with <code>Array</code>'s <code>map</code> <code>reduce</code> <code>filter</code> and other high order functions is really handy, but super slow! This project aims at optimising that by introducing a hack - it injects your function bodies into a procedural loop and runs <code>eval</code> on it.</p>
+<h2>Installation</h2><p>Node <code>&gt;=8.9.0</code> is required.</p>
+<pre class="prettyprint source lang-bash"><code>npm install --save fast-functionals</code></pre><p>To perform tests use:</p>
+<pre class="prettyprint source lang-bash"><code>cd node_modules/fast-functionals
+npm i
+npm t</code></pre><p>This project also has a benchmark that you can run yourself:</p>
+<pre class="prettyprint source lang-bash"><code>cd node_modules/fast-functionals
+npm i
+npm run benchmark</code></pre><h2>Usage</h2><p>Beware this project is still in development. There may be serious bugs or performance issues over time.</p>
+<pre class="prettyprint source lang-javascript"><code>const ProceduralLambda = require('fast-functionals');
+
+const external_var = 1;
+const my_pipeline = new ProceduralLambda()
+    // BEWARE the argument names must be v, i, s!
+    // The letters stand for: value, index, self
+    .filter((v,i,s) => v % 2)
+    // You can omit unused arguments
+    // Not using indices is actually faster
+    .map(v => v+1)
+    // You CANOT reference other variables in pure lambda functions!
+    // Only globals and lambda arguments can be safely accessed within the body.
+    // This line would throw a runtime exception:
+    //   .map(v => v+external_var)
+    // But this line is fine:
+    //   .map(v => Math.floor(v))
+    // If you need any more functionality you need to use the complex method
+    //   that doesn't inject function body into procedural code.
+    .mapComplex(function(v){
+        return v+external_var; // Do whatever you want here
+    })
+    // Reducing has a signature of accum, v, i ,s
+    // Accum stands for: accumulator
+    .reduce((accum,v) => accum+v, 0);
+
+const my_data = [1, 2, 3, 4, 5];
+console.log(`Result is: ${my_pipeline.execute(my_data)}`);
+
+// High order functions are immutable
+const base_pipeline = new ProceduralLambda()
+    .map(v => v+1);
+
+const pipeline1 = base_pipeline.filter(v => v % 2 !== 0);
+const pipeline2 = base_pipeline.filter(v => v % 2 === 0);
+// base_pipeline, pipeline1 and pipeline2 are different objects now!</code></pre><h2>Benchmarks</h2><p>Below is a benchmark of a simple map, filter, reduce chain using native Arrays (<code>raw</code>), using the awesome <a href="https://github.com/funkia/list">list</a> library, using this library's complex methods (<code>lambda-using-complex</code>), using lambdas with indice arguments for reduce (<code>lambda-with-indices</code>), using lambdas with only values (<code>lambda</code>).</p>
+<pre class="prettyprint source"><code>raw x 2,321,126 ops/sec ±0.57% (96 runs sampled)
+list x 1,654,198 ops/sec ±1.16% (90 runs sampled)
+lambda-using-complex x 2,248,725 ops/sec ±0.98% (93 runs sampled)
+lambda-with-indices x 2,957,437 ops/sec ±0.33% (94 runs sampled)
+lambda x 3,213,692 ops/sec ±0.63% (90 runs sampled)
+Fastest execution for N=10 is lambda
+
+raw x 238,413 ops/sec ±0.20% (92 runs sampled)
+list x 415,290 ops/sec ±1.95% (91 runs sampled)
+lambda-using-complex x 586,469 ops/sec ±0.76% (90 runs sampled)
+lambda-with-indices x 1,188,276 ops/sec ±0.84% (93 runs sampled)
+lambda x 1,488,025 ops/sec ±0.26% (93 runs sampled)
+Fastest execution for N=100 is lambda
+
+raw x 24,171 ops/sec ±0.64% (93 runs sampled)
+list x 47,571 ops/sec ±0.88% (93 runs sampled)
+lambda-using-complex x 70,660 ops/sec ±0.52% (95 runs sampled)
+lambda-with-indices x 174,379 ops/sec ±0.23% (93 runs sampled)
+lambda x 219,467 ops/sec ±0.44% (94 runs sampled)
+Fastest execution for N=1000 is lambda
+
+raw x 2,357 ops/sec ±0.67% (95 runs sampled)
+list x 4,637 ops/sec ±0.76% (96 runs sampled)
+lambda-using-complex x 6,538 ops/sec ±1.33% (96 runs sampled)
+lambda-with-indices x 16,682 ops/sec ±1.81% (90 runs sampled)
+lambda x 22,277 ops/sec ±0.57% (86 runs sampled)
+Fastest execution for N=10000 is lambda
+
+raw x 63.39 ops/sec ±1.26% (65 runs sampled)
+list x 90.23 ops/sec ±2.00% (67 runs sampled)
+lambda-using-complex x 517 ops/sec ±1.76% (82 runs sampled)
+lambda-with-indices x 950 ops/sec ±1.71% (79 runs sampled)
+lambda x 1,115 ops/sec ±1.74% (80 runs sampled)
+Fastest execution for N=100000 is lambda
+
+raw x 6.13 ops/sec ±1.39% (20 runs sampled)
+list x 8.71 ops/sec ±3.84% (24 runs sampled)
+lambda-using-complex x 45.51 ops/sec ±5.20% (51 runs sampled)
+lambda-with-indices x 83.88 ops/sec ±4.27% (62 runs sampled)
+lambda x 88.34 ops/sec ±4.48% (58 runs sampled)
+Fastest execution for N=1000000 is lambda,lambda-with-indices
+
+raw x 0.60 ops/sec ±1.33% (6 runs sampled)
+list x 0.74 ops/sec ±1.54% (6 runs sampled)
+lambda-using-complex x 4.88 ops/sec ±8.00% (17 runs sampled)
+lambda-with-indices x 7.17 ops/sec ±9.62% (22 runs sampled)
+lambda x 8.28 ops/sec ±10.23% (25 runs sampled)
+Fastest execution for N=10000000 is lambda</code></pre><h2>Contributing</h2><p>The source is documented with JSDoc. To generate the documentation use:</p>
+<pre class="prettyprint source lang-bash"><code>npm run docs</code></pre><p>Extra debugging information is printed using the <code>debug</code> module:</p>
+<pre class="prettyprint source lang-bash"><code>DEBUG=fast-functionals:* npm t</code></pre><p>The documentation will be put in the new <code>docs</code> directory.</p>
+<p>To introduce an improvement please fork this project, commit changes in a new branch to your fork and add a pull request on this repository pointing at your fork. Please follow these style recommendations when working on the code:</p>
+<ul>
+<li>Use tabs (yup).</li>
+<li>Use <code>async</code>/<code>await</code> and/or <code>Promise</code> where possible.</li>
+<li>Features must be properly tested.</li>
+<li>New methods must be properly documented with <code>jscode</code> style comments.</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Oct 29 2018 17:32:50 GMT+0100 (Central European Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
+</body>
+</html>

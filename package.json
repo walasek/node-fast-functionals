@@ -1,6 +1,6 @@
 {
   "name": "fast-functionals",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Super quick collection processing with functional programming.",
   "engines": {
     "node": ">=8.9.0"
