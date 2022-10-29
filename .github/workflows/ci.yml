@@ -1,0 +1,25 @@
+name: Node.js CI
+
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [12, 14, 16, 18, 19]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ""
+      - run: npm i
+      - run: npm run coverage
+      - run: npm run docs
+      - uses: codecov/codecov-action@v2
+        if: matrix.node-version == 18
