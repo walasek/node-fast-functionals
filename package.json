@@ -28,16 +28,16 @@
   },
   "homepage": "https://github.com/walasek/node-fast-functionals#readme",
   "devDependencies": {
-    "benchmark": "^2.1.4",
-    "docdash": "^1.0.0",
-    "faucet": "0.0.1",
-    "glob": "^7.1.2",
+    "benchmark": "^2",
+    "docdash": "^1",
+    "faucet": "0.0.3",
+    "glob": "^8",
     "istanbul": "^0.4.5",
-    "jsdoc": "^3.5.5",
-    "list": "^2.0.16",
-    "zora": "^3.0.1"
+    "jsdoc": "^3",
+    "list": "^2",
+    "zora": "^3"
   },
   "dependencies": {
-    "debug": "^4.1.0"
+    "debug": "^4"
   }
 }
